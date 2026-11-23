@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Екологічна карта України — Еко-освіта UA</title>
+<meta name="description" content="Інтерактивна екологічна карта України: техногенне навантаження і лісистість областей, заповідники, осередки екологічних загроз, головні річки.">
+<meta name="theme-color" content="#17241d">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:site_name" content="Еко-освіта UA">
+<meta property="og:title" content="Екологічна карта України">
+<meta property="og:description" content="Інтерактивна екологічна карта України: техногенне навантаження і лісистість областей, заповідники, осередки екологічних загроз, головні річки.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/golos-text-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/map.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1e6b43"/><path d="M9 23c10 0 15-6 15-15-9 0-15 5-15 15zm0 0 8-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Еко-освіта UA</span></a>
+    <nav class="site-nav" aria-label="Розділи сайту">
+      <a href="index.html">Головна</a>
+      <a href="map.html" aria-current="page">Екологічна карта</a>
+      <a href="index.html#stands">Стенди</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap map-page">
+  <div class="map-intro">
+    <div>
+      <div class="eyebrow">Навчальна інтерактивна карта</div>
+      <h1>Екологічна карта України</h1>
+      <p>Оберіть шар і натисніть на область, щоб побачити її екологічний паспорт. Позначки на карті — природно-заповідні об’єкти та осередки екологічних загроз.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-row" role="group" aria-label="Тематичний шар">
+      <span class="eyebrow">Шар</span>
+      <button type="button" class="chip" id="l-tech" aria-pressed="true">Техногенне навантаження</button>
+      <button type="button" class="chip" id="l-forest" aria-pressed="false">Лісистість</button>
+      <button type="button" class="chip" id="l-none" aria-pressed="false">Без заливки</button>
+    </div>
+    <div class="ctrl-row" role="group" aria-label="Позначки на карті">
+      <span class="eyebrow">Позначки</span>
+      <button type="button" class="chip" id="o-pzf" aria-pressed="true"><span class="dot" style="background:var(--pzf)"></span>Заповідники й нацпарки</button>
+      <button type="button" class="chip" id="o-hot" aria-pressed="true"><span class="dot" style="background:var(--hot)"></span>Екологічні загрози</button>
+      <button type="button" class="chip" id="o-riv" aria-pressed="true"><span class="dot" style="background:var(--water)"></span>Річки</button>
+    </div>
+    <div class="region-pick">
+      <label for="region-select">Область</label>
+      <select id="region-select"></select>
+    </div>
+  </div>
+
+  <div class="map-grid">
+    <div class="mapbox" id="mapbox">
+      <svg id="map" viewBox="0 0 1000 670" role="img" aria-label="Карта областей України з екологічними позначками">
+        <g id="regions"></g>
+        <g id="rivers"></g>
+        <g id="labels"></g>
+        <g id="pts"></g>
+      </svg>
+      <div class="tip" id="tip" hidden></div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <div class="below"><section class="info">
+      <h2>Головні екологічні проблеми України</h2>
+      <ul>
+        <li>Наслідки збройної агресії РФ: забруднення ґрунтів і вод, пожежі, руйнування промислових об'єктів, підрив Каховської ГЕС (6 червня 2023 р.).</li>
+        <li>Радіаційне забруднення після аварії на ЧАЕС (1986 р.) і ризики окупованої Запорізької АЕС.</li>
+        <li>Викиди металургії, хімії, теплової енергетики (Придніпров'я, Донбас, Запоріжжя).</li>
+        <li>Порушені землі гірничодобувних районів, затоплення шахт, відвали й хвостосховища.</li>
+        <li>Накопичення побутових відходів на полігонах, низька частка переробки.</li>
+        <li>Вирубка лісів у Карпатах і Поліссі, незаконний видобуток бурштину.</li>
+        <li>Забруднення та обміління малих річок, евтрофікація водосховищ Дніпра.</li>
+      </ul>
+    </section><section class="info">
+      <h2>Природно-заповідний фонд</h2>
+      <p>ПЗФ України налічує понад 8 тис. територій та об'єктів: біосферні та природні заповідники, національні природні парки, заказники, пам'ятки природи, ботанічні сади й дендропарки. На карті показано найвідоміші заповідники й нацпарки.</p>
+      <p>Частина об'єктів (Асканія-Нова, Кримський, Чорноморський, Азово-Сиваський) перебуває на тимчасово окупованих територіях або в зоні бойових дій.</p>
+    </section><section class="info">
+      <h2>Як читати шари</h2>
+      <p><b>Техногенне навантаження</b> — умовна оцінка за структурою промисловості та наслідками війни: від мінімального (аграрні та лісові регіони) до високого (гірничо-металургійні центри).</p>
+      <p><b>Лісистість</b> — частка вкритих лісом площ області, орієнтовні значення.</p>
+    </section></div>
+  <p class="note">Карта підготовлена для навчальних стендів. Межі областей — адміністративні; лінії окупації не показано. Оцінки техногенного навантаження і значення лісистості орієнтовні (узагальнено з відкритих даних Держстату, Держлісагентства і Міндовкілля). Сучасні дані про шкоду довкіллю від війни: <a href="https://ecozagroza.gov.ua/">ecozagroza.gov.ua</a>. Контури областей: <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/ukraine">svg-maps/ukraine</a> (Olesia Ladanai, CC BY 4.0).</p>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <span>Еко-освіта UA — навчальні матеріали з екології. Матеріали можна вільно друкувати для навчальних стендів.</span>
+    
+    <span><a href="https://github.com/d-almazov/eco-edu-ua">Вихідний код на GitHub</a></span>
+  </div>
+</footer>
+<script src="assets/js/ukraine-regions.js"></script>
+<script src="assets/js/map.js"></script>
+</body>
+</html>

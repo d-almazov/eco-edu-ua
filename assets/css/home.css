@@ -1,0 +1,55 @@
+/* Головна: заголовок, велика картка карти, список стендів як «корінці» плакатів */
+.home { padding-block: 28px 0; display: flex; flex-direction: column; gap: 28px; }
+.hero h1 {
+  font-family: var(--display); font-weight: 700; letter-spacing: -.015em;
+  font-size: clamp(28px, 5.2vw, 50px); line-height: 1.08; margin: 6px 0 12px; max-width: 20ch;
+}
+.hero p { margin: 0; color: var(--muted); font-size: 17px; max-width: 60ch; }
+
+.map-card {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 20px; align-items: center;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px;
+  color: var(--ink); text-decoration: none; transition: border-color .15s;
+}
+.map-card:hover { border-color: var(--accent); }
+.mc-text { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.mc-text b { font-family: var(--display); font-weight: 500; font-size: 24px; line-height: 1.2; }
+.mc-text > span:not(.eyebrow):not(.mc-go) { color: var(--muted); }
+.mc-go { font-weight: 600; color: var(--accent); }
+.mc-art { width: 100%; height: auto; display: block; }
+.mc-art path { stroke: var(--paper); stroke-width: 1.4; }
+.mc-art .l { fill: #e7c98a; }
+.mc-art .m { fill: #d99a52; }
+.mc-art .h { fill: #b8582f; }
+@media (prefers-color-scheme: dark) {
+  .mc-art .l { fill: #6b5530; }
+  .mc-art .m { fill: #9a6a36; }
+  .mc-art .h { fill: #d0784a; }
+}
+
+.stands h2, .howto h2 { font-family: var(--display); font-weight: 500; font-size: 22px; margin: 0 0 14px; }
+.stand-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+.stand-list li { display: flex; }
+.stand-card {
+  flex: 1; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden;
+  background: var(--paper); border: 1px solid var(--line); color: var(--ink); text-decoration: none;
+  transition: transform .15s, border-color .15s;
+}
+.stand-card:hover { transform: translateY(-2px); border-color: var(--band); }
+.sc-band {
+  background: var(--band); color: #fff; padding: 14px 16px 30px;
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+}
+.sc-body { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 18px; }
+.sc-body b { font-family: var(--display); font-weight: 500; font-size: 16.5px; line-height: 1.25; }
+.sc-body span { font-size: 14px; color: var(--muted); line-height: 1.45; }
+
+.howto { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 20px 24px; }
+.howto ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; max-width: 75ch; }
+
+@media (max-width: 720px) {
+  .map-card { grid-template-columns: minmax(0, 1fr); padding: 18px; }
+  .mc-art { order: -1; }
+  .howto { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .stand-card:hover { transform: none; } }
